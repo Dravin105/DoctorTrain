@@ -1,0 +1,21 @@
+﻿@model DoctorTrain.Model.Dto.DoctorScheduleDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading">Are you sure you want to delete this schedule?</h4>
+    <p>Doctor: @Model.DoctorName</p>
+    <p>Hospital: @Model.HospitalName</p>
+    <p>Day: @Model.DayOfWeek</p>
+    <p>Arrival Time: @Model.ArrivalTime.ToString("hh\\:mm")</p>
+    <p>Departure Time: @Model.DepartureTime.ToString("hh\\:mm")</p>
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="@Url.Action("Index", "DoctorSchedule")" class="btn btn-secondary">Cancel</a>
+</form>

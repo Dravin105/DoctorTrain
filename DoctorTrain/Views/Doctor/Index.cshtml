@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.DoctorDto>
+
+@{
+    ViewData["Title"] = "Doctors List";
+}
+
+<h2 class="my-4">Doctors List</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Add New Doctor</a>
+</div>
+
+<table class="table table-striped table-bordered shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Specialization)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Specialization)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>
+                    <a href="@Url.Action("Details", "Doctor", new { id = item.Id })" class="btn btn-danger">Details</a>
+                    <a href="@Url.Action("Edit", "Doctor", new { id = item.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Doctor", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

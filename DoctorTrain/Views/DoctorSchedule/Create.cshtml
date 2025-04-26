@@ -1,0 +1,63 @@
+﻿@using DoctorTrain.Model.Dto
+@model DoctorTrain.Model.Dto.DoctorScheduleCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label for="DoctorId" class="form-label">Doctor</label>
+        <select class="form-control" id="DoctorId" name="DoctorId" required>
+            <option value="">Select Doctor</option>
+            @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
+            {
+                <option value="@doctor.Id">@doctor.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="HospitalId" class="form-label">Hospital</label>
+        <select class="form-control" id="HospitalId" name="HospitalId" required>
+            <option value="">Select Hospital</option>
+            @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
+            {
+                <option value="@hospital.Id">@hospital.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="DayOfWeek" class="form-label">Day of Week</label>
+        <select class="form-control" id="DayOfWeek" name="DayOfWeek" required>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="ArrivalTime" class="form-label">Arrival Time</label>
+        <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="DepartureTime" class="form-label">Departure Time</label>
+        <input type="time" class="form-control" id="DepartureTime" name="DepartureTime" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Schedule</button>
+</form>
+
+<a href="@Url.Action("Index", "DoctorSchedule")" class="btn btn-secondary">Back to List</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

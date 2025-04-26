@@ -1,0 +1,33 @@
+﻿@model DoctorTrain.Model.Dto.DoctorScheduleDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Doctor Schedule</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Doctor</dt>
+        <dd class="col-sm-10">@Model.DoctorName</dd>
+
+        <dt class="col-sm-2">Hospital</dt>
+        <dd class="col-sm-10">@Model.HospitalName</dd>
+
+        <dt class="col-sm-2">Day</dt>
+        <dd class="col-sm-10">@Model.DayOfWeek</dd>
+
+        <dt class="col-sm-2">Arrival Time</dt>
+        <dd class="col-sm-10">@Model.ArrivalTime.ToString("hh\\:mm")</dd>
+
+        <dt class="col-sm-2">Departure Time</dt>
+        <dd class="col-sm-10">@Model.DepartureTime.ToString("hh\\:mm")</dd>
+    </dl>
+</div>
+
+<div>
+    <a href="@Url.Action("Edit", "DoctorSchedule", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+    <a href="@Url.Action("Index", "DoctorSchedule")" class="btn btn-secondary">Back to List</a>
+</div>

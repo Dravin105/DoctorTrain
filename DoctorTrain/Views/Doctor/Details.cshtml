@@ -1,0 +1,35 @@
+﻿@model DoctorTrain.Model.Dto.DoctorDto
+
+@{
+    ViewData["Title"] = "Doctor Details";
+}
+
+<h2 class="mb-4">Doctor Details</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h4 class="card-title">@Model.FullName</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3 text-muted">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3 text-muted">Full Name</dt>
+            <dd class="col-sm-9">@Model.FullName</dd>
+
+            <dt class="col-sm-3 text-muted">Specialization</dt>
+            <dd class="col-sm-9">@Model.Specialization</dd>
+
+            <dt class="col-sm-3 text-muted">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            <dt class="col-sm-3 text-muted">Mobile</dt>
+            <dd class="col-sm-9">@Model.Mobile</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary me-2" })
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
