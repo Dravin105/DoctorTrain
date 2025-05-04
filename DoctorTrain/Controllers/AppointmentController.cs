@@ -16,10 +16,11 @@ namespace DoctorTrain.Controllers
             _iAppointmentService = iAppointmentService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var Appointment= await _iAppointmentService.GetAllAsync();
-            return View(Appointment);
+            var result = await _iAppointmentService.GetAllAppointmentsAsync();
+            return View(result);
         }
         public async Task<IActionResult> Create()
         {
@@ -33,14 +34,18 @@ namespace DoctorTrain.Controllers
         // POST: /Appointment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AppointmentDto dto)
+        public async Task<IActionResult> Create(AppointmentReadDto dto)
         {
             if (ModelState.IsValid)
             {
+
                 await _iAppointmentService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
+
+             
             }
             return View(dto);
+
         }
         public async Task<IActionResult> Edit()
         {
@@ -51,41 +56,60 @@ namespace DoctorTrain.Controllers
             return View();
         }
 
-        // POST: /Appointment/Create
+        // POST: /Appointment/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( int id,AppointmentDto appointmentDto)
+        public async Task<IActionResult> Edit(int id, AppointmentReadDto appointmentDto) // Use AppointmentDto here
         {
             if (id != appointmentDto.Id) return NotFound();
             if (ModelState.IsValid)
             {
-                await _iAppointmentService.UpdateAsync(id,appointmentDto);
+                await _iAppointmentService.UpdateAsync(id, appointmentDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointmentDto);
+            return View(appointmentDto); // Return same model type to the view
         }
+        public async Task<IActionResult> Details(int id)
+        {
+            var result = await _iAppointmentService.GetAppointmentByIdAsync(id);
+            if (result == null) return NotFound();
+            return View(result);
+        }
+
         public async Task<IActionResult> Delete(int id)
         {
-            var doctor = await _iAppointmentService.GetDoctorByIdAsync(id);
-            if (doctor == null)
+            var appointment = await _iAppointmentService.GetAppointmentByIdAsync(id);
+            if (appointment == null)
             {
                 return NotFound();
             }
-            return View(doctor);
+            return View (appointment);
+
+
         }
 
-        // POST: Doctor/Delete/5
+        // POST: Appointment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _iAppointmentService.DeleteAsync(id);
+            await _iAppointmentService.DeleteAppointmentAsync(id);
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Details(int id)
-        {
-            var hospital = await _iAppointmentService.GetDoctorByIdAsync(id);
-            return View(hospital);
-        }
+        //}
+
+        //// POST: Doctor/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    await _iAppointmentService.DeleteAsync(id);
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var hospital = await _iAppointmentService.GetDoctorByIdAsync(id);
+        //    return View(hospital);
+        //}
     }
 }

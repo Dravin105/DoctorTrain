@@ -19,7 +19,7 @@ namespace DoctorTrain.Business_Layer.Service
         }
         public async Task<List<HospitalDto>> GetHospitalsAsync()
         {
-            var Hospital= await _context.Hospitals.ToListAsync();
+            var Hospital = await _context.Hospitals.ToListAsync();
             return _mapper.Map<List<HospitalDto>>(Hospital);
         }
 
@@ -30,10 +30,10 @@ namespace DoctorTrain.Business_Layer.Service
         }
         public async Task<List<PatientDto>> GetPatientAsync()
         {
-            var Doctor = await _context.Patients.ToListAsync();
-            return _mapper.Map<List<PatientDto>>(Doctor);
+            var Patient = await _context.Patients.ToListAsync();
+            return _mapper.Map<List<PatientDto>>(Patient);
         }
-        public async Task<List<AppointmentDto>> GetAllAsync()
+        public async Task<List<AppointmentDto>> GetAllAppointmentsAsync()
         {
             var appointments = await _context.Appointments
                 .Include(a => a.Doctor)
@@ -43,19 +43,34 @@ namespace DoctorTrain.Business_Layer.Service
 
             return _mapper.Map<List<AppointmentDto>>(appointments);
         }
-        public async Task<AppointmentDto> GetDoctorByIdAsync(int id)
+        public async Task<AppointmentDto> GetAppointmentByIdAsync(int id)
         {
-            var appointment = await _context.Doctors.FindAsync(id);
+            var appointment = await _context.Appointments
+                .Include(a => a.Doctor)
+                .Include(a => a.Hospital)
+                .Include(a => a.Patients)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
             return _mapper.Map<AppointmentDto>(appointment);
         }
-        public async Task CreateAsync(AppointmentDto dto)
+        public async Task<bool> DeleteAppointmentAsync(int id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment == null) return false;
+
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task CreateAsync(AppointmentReadDto dto)
         {
             var appointment = _mapper.Map<Appointment>(dto);
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id, AppointmentDto appointmentDto)
+        public async Task UpdateAsync(int id, AppointmentReadDto appointmentDto)
         {
             var appointment = await _context.Appointments.FindAsync(id);
             if (appointment == null) return;
@@ -63,14 +78,23 @@ namespace DoctorTrain.Business_Layer.Service
             _mapper.Map(appointmentDto, appointment);
             await _context.SaveChangesAsync();
         }
-
-        public async Task DeleteAsync(int id)
-        {
-            var doctor = await _context.Appointments.FindAsync(id);
-            if (doctor == null) throw new Exception("Appointments not found.");
-
-            _context.Appointments.Remove(doctor);
-            await _context.SaveChangesAsync();
-        }
     }
 }
+//        public async Task<AppointmentDto> GetDoctorByIdAsync(int id)
+//        {
+//            var appointment = await _context.Appointments.FindAsync(id);
+//            return _mapper.Map<AppointmentDto>(appointment);
+//        }
+
+//        
+
+//        public async Task DeleteAsync(int id)
+//        {
+//            var doctor = await _context.Appointments.FindAsync(id);
+//            if (doctor == null) throw new Exception("Appointments not found.");
+
+//            _context.Appointments.Remove(doctor);
+//            await _context.SaveChangesAsync();
+//        }
+//    }
+//}
