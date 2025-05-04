@@ -1,14 +1,16 @@
-﻿namespace DoctorTrain.Model.Dto
+﻿using Humanizer;
+
+namespace DoctorTrain.Model.Dto
 {
     public class AppointmentReadDto
     {
         public int Id { get; set; }
         public string Mobile { get; set; }
-        public string DoctorName { get; set; }
-        public string HospitalName { get; set; }
-        public string PatientName { get; set; }
+        public int DoctorId { get; set; }
+        public int HospitalId { get; set; }
+        public int PatientId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; }
-        public string Status { get; set; }
+        //public string Status { get; set; }
     }
 }

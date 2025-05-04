@@ -1,6 +1,6 @@
 ﻿namespace DoctorTrain.Model.Dto
 {
-    public class AppointmentDto
+    public class AppointmentEditDto
     {
         public int Id { get; set; }
         public string Mobile { get; set; }

@@ -1,68 +1,55 @@
 ﻿@model DoctorTrain.Model.Dto.AppointmentDto
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Appointment";
 }
 
-<h1>Delete</h1>
+<div class="container mt-5">
+    <div class="card border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-trash3-fill"></i> Confirm Delete Appointment
+            </h4>
+        </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>AppointmentDto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Mobile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Mobile)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DoctorName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DoctorName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HospitalName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HospitalName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Time)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Time)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+        <div class="card-body">
+            <p class="text-muted">Are you sure you want to delete the following appointment?</p>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-4 fw-semibold">Appointment ID</dt>
+                <dd class="col-sm-8">@Model.Id</dd>
+
+                <dt class="col-sm-4 fw-semibold">Mobile</dt>
+                <dd class="col-sm-8">@Model.Mobile</dd>
+
+                <dt class="col-sm-4 fw-semibold">Doctor Name</dt>
+                <dd class="col-sm-8">@Model.DoctorName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Hospital Name</dt>
+                <dd class="col-sm-8">@Model.HospitalName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Patient Name</dt>
+                <dd class="col-sm-8">@Model.PatientName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Date</dt>
+                <dd class="col-sm-8">@Model.Date.ToString("dd MMM yyyy")</dd>
+
+                <dt class="col-sm-4 fw-semibold">Time</dt>
+                <dd class="col-sm-8">@Model.Time.ToString(@"hh\:mm")</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        🗑 Delete Appointment
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        ⬅ Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

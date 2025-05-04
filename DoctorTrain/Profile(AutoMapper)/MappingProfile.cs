@@ -24,12 +24,11 @@ namespace DoctorTrain.Profile_AutoMapper_
             CreateMap<DoctorScheduleEditDto, DoctorSchedule>();
             CreateMap<DoctorSchedule, DoctorScheduleEditDto>();
 
-            CreateMap<AppointmentDto, Appointment>();
-            CreateMap<Appointment, AppointmentReadDto>()
+            CreateMap<Appointment, AppointmentDto>()
                 .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
                 .ForMember(dest => dest.HospitalName, opt => opt.MapFrom(src => src.Hospital.Name))
                 .ForMember(dest => dest.PatientName, opt => opt.MapFrom(src => src.Patients.FirstName));
-
+           CreateMap<Appointment, AppointmentReadDto>().ReverseMap();
             CreateMap<Patient, PatientDto>().ReverseMap();
 
         }
