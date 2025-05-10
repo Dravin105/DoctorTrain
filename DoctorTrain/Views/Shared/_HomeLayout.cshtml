@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DoctorTrain | Best Medical Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       
+
+        body {
+            background-color: #f9f9;
+
+        }
+
+        .navbar-custom {
+            background-color: #fff;
+            border-bottom: 2px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #2b7a78;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+        }
+
+            .nav-link:hover {
+                color: #2b7a78 !important;
+            }
+
+        .login-btn {
+            background-color: #2b7a78;
+            color: #fff;
+        }
+
+            .login-btn:hover {
+                background-color: #205f5b;
+            }
+
+        .cards-container {
+            padding: 40px 20px;
+        }
+
+        .card-title {
+            color: #2b7a78;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom px-4">
+        <a class="navbar-brand" href="#">DoctorTrain</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Homes" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Doctors Panel</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+            <a class="btn login-btn" asp-controller="Auth" asp-action="Login">Login</a>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    
+
+    <div class="container mb-5">
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

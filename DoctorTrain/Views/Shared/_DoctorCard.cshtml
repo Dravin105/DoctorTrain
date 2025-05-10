@@ -1,0 +1,12 @@
+﻿@model DoctorTrain.Model.Dto.DoctorDto
+
+<div class="card shadow border-0 p-3 m-2" style="width: 300px;">
+    <img src="@Model.ImageUrl" class="card-img-top rounded-circle mx-auto mt-3" style="width: 120px; height: 120px; object-fit: cover;" alt="Doctor" />
+    <div class="card-body text-center">
+        <h5 class="card-title">@Model.FullName</h5>
+        <p class="text-muted">@Model.Specialization</p>
+        <p><i class="bi bi-envelope-fill"></i> @Model.Email</p>
+        <p><i class="bi bi-phone-fill"></i> @Model.Mobile</p>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">View Details</a>
+    </div>
+</div>

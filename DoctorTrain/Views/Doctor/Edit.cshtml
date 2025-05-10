@@ -2,13 +2,14 @@
 
 @{
     ViewData["Title"] = "Edit Doctor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2 class="mb-4">Edit Doctor Details</h2>
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <input asp-for="Id" type="hidden" />
@@ -43,6 +44,21 @@
                 <input asp-for="Mobile" class="form-control" />
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
+
+            <!-- Image Upload -->
+            <div class="mb-3">
+                <label class="form-label">Doctor Image</label>
+                <input type="file" name="ImageFile" class="form-control" />
+            </div>
+
+            <!-- Show Existing Image -->
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="mb-3">
+                    <label class="form-label">Current Image:</label>
+                    <img src="@Model.ImageUrl" alt="Doctor Image" class="img-thumbnail" style="max-height: 150px;" />
+                </div>
+            }
 
             <button type="submit" class="btn btn-success w-100">Save</button>
         </form>

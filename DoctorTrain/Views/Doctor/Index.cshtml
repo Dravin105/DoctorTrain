@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Doctors List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2 class="my-4">Doctors List</h2>
@@ -13,6 +14,7 @@
 <table class="table table-striped table-bordered shadow-sm">
     <thead class="table-dark">
         <tr>
+            <th>Photo</th>
             <th>@Html.DisplayNameFor(model => model.First().FullName)</th>
             <th>@Html.DisplayNameFor(model => model.First().Specialization)</th>
             <th>@Html.DisplayNameFor(model => model.First().Email)</th>
@@ -23,6 +25,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <img src="@item.ImageUrl" alt="Doctor Photo" width="80" height="80" class="rounded-circle border shadow-sm" />
+                </td>
                 <td>@Html.DisplayFor(modelItem => item.FullName)</td>
                 <td>@Html.DisplayFor(modelItem => item.Specialization)</td>
                 <td>@Html.DisplayFor(modelItem => item.Email)</td>

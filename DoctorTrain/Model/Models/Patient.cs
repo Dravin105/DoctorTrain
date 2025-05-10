@@ -13,7 +13,6 @@ namespace DoctorTrain.Model.Models
         public string BloodGruop { get; set; }      // Patient ka BloodGruop
         public string Mobile { get; set; }        // Patient ka mobile number
         public string Email { get; set; }         // Patient ka email
-
         public ICollection<Appointment> Appointments { get; set; } // Appointments booked by patient
     }
 }

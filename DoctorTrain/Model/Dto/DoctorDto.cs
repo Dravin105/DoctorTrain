@@ -16,5 +16,7 @@ namespace DoctorTrain.Model.Dto
 
         [Required, Phone]
         public string Mobile { get; set; }
+        public IFormFile? ImageFile { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

@@ -2,62 +2,107 @@
 @model DoctorTrain.Model.Dto.DoctorScheduleCreateDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Doctor Schedule";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@ViewData["Title"]</h2>
+<style>
+    .form-container {
+        background: linear-gradient(to right, #134e5e, #71b280);
+        padding: 40px 30px;
+        border-radius: 10px;
+        color: #fff;
+    }
 
-<form method="post">
-    <div class="mb-3">
-        <label for="DoctorId" class="form-label">Doctor</label>
-        <select class="form-control" id="DoctorId" name="DoctorId" required>
-            <option value="">Select Doctor</option>
-            @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
-            {
-                <option value="@doctor.Id">@doctor.FullName</option>
-            }
-        </select>
+        .form-container label {
+            color: #fff;
+        }
+
+        .form-container .form-control,
+        .form-container .form-select {
+            border-radius: 0.4rem;
+        }
+
+    .btn-submit {
+        background-color: #fdbb28;
+        color: #000;
+        font-weight: bold;
+        border: none;
+    }
+
+        .btn-submit:hover {
+            background-color: #f5a623;
+            color: #fff;
+        }
+
+    .btn-secondary {
+        border: none;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 form-container shadow-lg">
+            <h2 class="text-center mb-4">📅 Create Doctor Schedule</h2>
+
+            <form method="post">
+                <div class="mb-3">
+                    <label for="DoctorId" class="form-label">Doctor</label>
+                    <select class="form-select" id="DoctorId" name="DoctorId" required>
+                        <option value="">-- Select Doctor --</option>
+                        @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
+                        {
+                            <option value="@doctor.Id">@doctor.FullName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="HospitalId" class="form-label">Hospital</label>
+                    <select class="form-select" id="HospitalId" name="HospitalId" required>
+                        <option value="">-- Select Hospital --</option>
+                        @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
+                        {
+                            <option value="@hospital.Id">@hospital.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DayOfWeek" class="form-label">Day of Week</label>
+                    <select class="form-select" id="DayOfWeek" name="DayOfWeek" required>
+                        <option value="">-- Select Day --</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ArrivalTime" class="form-label">Arrival Time</label>
+                    <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="DepartureTime" class="form-label">Departure Time</label>
+                    <input type="time" class="form-control" id="DepartureTime" name="DepartureTime" required />
+                </div>
+
+                <button type="submit" class="btn btn-submit w-100 mt-3">Create Schedule</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "DoctorSchedule")" class="btn btn-secondary">← Back to List</a>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label for="HospitalId" class="form-label">Hospital</label>
-        <select class="form-control" id="HospitalId" name="HospitalId" required>
-            <option value="">Select Hospital</option>
-            @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
-            {
-                <option value="@hospital.Id">@hospital.Name</option>
-            }
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label for="DayOfWeek" class="form-label">Day of Week</label>
-        <select class="form-control" id="DayOfWeek" name="DayOfWeek" required>
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label for="ArrivalTime" class="form-label">Arrival Time</label>
-        <input type="time" class="form-control" id="ArrivalTime" name="ArrivalTime" required />
-    </div>
-
-    <div class="mb-3">
-        <label for="DepartureTime" class="form-label">Departure Time</label>
-        <input type="time" class="form-control" id="DepartureTime" name="DepartureTime" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create Schedule</button>
-</form>
-
-<a href="@Url.Action("Index", "DoctorSchedule")" class="btn btn-secondary">Back to List</a>
-
+</div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}  
