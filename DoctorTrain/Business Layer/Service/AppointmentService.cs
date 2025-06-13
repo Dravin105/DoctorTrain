@@ -63,11 +63,12 @@ namespace DoctorTrain.Business_Layer.Service
             return true;
         }
 
-        public async Task CreateAsync(AppointmentReadDto dto)
+        public async Task<Appointment> CreateAsync(AppointmentReadDto dto)
         {
             var appointment = _mapper.Map<Appointment>(dto);
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
+            return appointment;
         }
 
         public async Task UpdateAsync(int id, AppointmentReadDto appointmentDto)
@@ -78,6 +79,23 @@ namespace DoctorTrain.Business_Layer.Service
             _mapper.Map(appointmentDto, appointment);
             await _context.SaveChangesAsync();
         }
+        public async Task<int> GetAppointmentCountByDoctorIdAsync(int doctorId)
+        {
+            return await _context.Appointments
+                                 .CountAsync(a => a.DoctorId == doctorId);
+        }
+
+        public async Task<List<PatientDto>> GetPatientsByDoctorIdAsync(int doctorId)
+        {
+            var patients = await _context.Appointments
+                                .Where(a => a.DoctorId == doctorId)
+                                .Select(a => a.Patients)
+                                .Distinct()
+                                .ToListAsync();
+
+            return _mapper.Map<List<PatientDto>>(patients);
+        }
+
     }
 }
 //        public async Task<AppointmentDto> GetDoctorByIdAsync(int id)

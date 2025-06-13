@@ -1,0 +1,100 @@
+﻿@model DoctorTrain.Model.Dto.DoctorDto
+
+@{
+    ViewData["Title"] = "Create Doctor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .form-section {
+        background: linear-gradient(to right, #3a6186, #89253e);
+        padding: 50px 30px;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+        .form-section label {
+            color: #fff;
+        }
+
+        .form-section .form-control,
+        .form-section .form-select {
+            border-radius: 0.4rem;
+        }
+
+    .btn-submit {
+        background-color: #fdbb28;
+        color: #000;
+        font-weight: bold;
+        border: none;
+    }
+
+        .btn-submit:hover {
+            background-color: #f5a623;
+            color: #fff;
+        }
+
+    .btn-secondary {
+        border: none;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 form-section shadow-lg">
+            <h2 class="text-center mb-4">🩺 Add New Doctor</h2>
+
+            <form asp-action="DoctorCreate" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Specialization" class="form-label"></label>
+                    <select asp-for="Specialization" class="form-select">
+                        <option value="">-- Select Specialization --</option>
+                        <option>Cardiologist</option>
+                        <option>Dentist</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="example@domain.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Mobile" class="form-label"></label>
+                    <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label">Upload Image</label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+
+                <button type="submit" class="btn btn-submit w-100 mt-3">Create Doctor</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a asp-action="ManageDoctors" class="btn btn-secondary">← Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.DoctorScheduleDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="mb-3">
+    <a href="@Url.Action("Create", "DoctorSchedule")" class="btn btn-primary">Add New Schedule</a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Doctor</th>
+            <th>Hospital</th>
+            <th>Day</th>
+            <th>Arrival Time</th>
+            <th>Departure Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr>
+                <td>
+                    <a class="Doctor" href="@Url.Action("Details", "DoctorSchedule", new { id = schedule.DoctorId })">
+                        @schedule.DoctorName
+                    </a>
+                </td>
+                <td>
+                    <a class="Hospital" href="@Url.Action("Details", "Hospital", new { id = schedule.HospitalId })">
+                        @schedule.HospitalName
+                    </a>
+                </td>
+                <td>@schedule.DayOfWeek</td>
+                <td>@schedule.ArrivalTime.ToString("hh\\:mm")</td>
+                <td>@schedule.DepartureTime.ToString("hh\\:mm")</td>
+                <td>
+                    <a href="@Url.Action("Details", "DoctorSchedule", new { id = schedule.Id })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Edit", "DoctorSchedule", new { id = schedule.Id })" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "DoctorSchedule", new { id = schedule.Id })" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,97 @@
+﻿@using DoctorTrain.Model.Dto
+@model DoctorTrain.Model.Dto.AppointmentReadDto
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">✏️ Edit Appointment</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="AppointmentEdit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Patient Selection -->
+                <div class="mb-3">
+                    <label for="PatientId" class="form-label">Select Patient</label>
+                    <select class="form-select" id="PatientId" name="PatientId" required>
+                        <option value="">-- Select Patient --</option>
+                        @foreach (var patient in ViewBag.Patients as List<PatientDto>)
+                        {
+                            <option value="@patient.Id">@patient.FirstName</option>
+                        }
+                    </select>
+                    <span class="text-danger">@Html.ValidationMessage("PatientId")</span>
+                </div>
+
+                <!-- Mobile Input -->
+                <div class="mb-3">
+                    <label asp-for="Mobile" class="form-label"></label>
+                    <input asp-for="Mobile" class="form-control" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+
+                <!-- Doctor Selection -->
+                <div class="mb-3">
+                    <label for="DoctorId" class="form-label">Select Doctor</label>
+                    <select class="form-select" id="DoctorId" name="DoctorId" required>
+                        <option value="">-- Select Doctor --</option>
+                        @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
+                        {
+                            <option value="@doctor.Id">@doctor.FullName</option>
+                        }
+                    </select>
+                    <span class="text-danger">@Html.ValidationMessage("DoctorId")</span>
+                </div>
+
+                <!-- Hospital Selection -->
+                <div class="mb-3">
+                    <label for="HospitalId" class="form-label">Select Hospital</label>
+                    <select class="form-select" id="HospitalId" name="HospitalId" required>
+                        <option value="">-- Select Hospital --</option>
+                        @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
+                        {
+                            <option value="@hospital.Id">@hospital.Name</option>
+                        }
+                    </select>
+                    <span class="text-danger">@Html.ValidationMessage("HospitalId")</span>
+                </div>
+
+                <!-- Date Input -->
+                <div class="mb-3">
+                    <label asp-for="Date" class="form-label"></label>
+                    <input asp-for="Date" class="form-control" type="date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <!-- Time Input -->
+                <div class="mb-3">
+                    <label asp-for="Time" class="form-label"></label>
+                    <input asp-for="Time" class="form-control" type="time" />
+                    <span asp-validation-for="Time" class="text-danger"></span>
+                </div>
+
+                <!-- Submit and Cancel Buttons -->
+                <div class="mt-4 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">
+                        💾 Update Appointment
+                    </button>
+                    <a asp-action="AppointmentList" class="btn btn-outline-secondary">
+                        ⬅ Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

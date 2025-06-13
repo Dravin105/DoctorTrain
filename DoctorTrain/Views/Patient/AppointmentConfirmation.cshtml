@@ -1,0 +1,47 @@
+﻿@model DoctorTrain.Model.Dto.AppointmentDto
+
+@{
+    ViewData["Title"] = "Appointment Confirmation";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<style>
+    .confirmation-box {
+        background-color: #f0f8ff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #999;
+        margin: 50px auto;
+        max-width: 600px;
+        text-align: center;
+    }
+
+        .confirmation-box h2 {
+            color: #2e8b57;
+        }
+
+    .confirmation-detail {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+        .confirmation-detail p {
+            margin: 5px 0;
+        }
+</style>
+
+<div class="confirmation-box">
+    <h2>✅ Appointment Confirmed!</h2>
+    <p>Thank you for booking your appointment. Here are your details:</p>
+
+    <div class="confirmation-detail">
+        <p><strong>Patient Name:</strong> @Model.PatientName</p>
+        <p><strong>Mobile:</strong> @Model.Mobile</p>
+        <p><strong>Doctor Name:</strong> @Model.DoctorName</p>
+        <p><strong>Hospital:</strong> @Model.HospitalName</p>
+        <p><strong>Date:</strong> @Model.Date.ToString("dd MMM yyyy")</p>
+        <p><strong>Time:</strong> @Model.Time.ToString(@"hh\:mm")</p>
+    </div>
+
+    <a href="@Url.Action("AppointmentList", "Patient")" class="btn btn-primary mt-3">View My Appointments</a>
+</div>

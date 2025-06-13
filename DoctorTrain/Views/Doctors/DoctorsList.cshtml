@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.DoctorDto>
+
+@{
+    ViewData["Title"] = "Doctors List";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h2 class="my-4">Doctors List</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Add New Doctor</a>
+</div>
+
+<table class="table table-striped table-bordered shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Email</th>
+            <th>Total Appointments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.ImageUrl" width="80" height="80" /></td>
+                <td>@item.FullName</td>
+                <td>@item.Specialization</td>
+                <td>@item.Email</td>
+                <td>@item.TotalAppointments</td>
+                <td>
+                    <a href="@Url.Action("PatientsByDoctor", "Doctors", new { doctorId = item.Id })" class="btn btn-info">View Patients</a>
+                    <a href="@Url.Action("Details", "Doctors", new { id = item.Id })" class="btn btn-danger">Details</a>
+                    <a href="@Url.Action("Edit", "Doctors", new { id = item.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Doctors", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

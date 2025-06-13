@@ -18,5 +18,8 @@ namespace DoctorTrain.Model.Dto
         public string Mobile { get; set; }
         public IFormFile? ImageFile { get; set; }
         public string? ImageUrl { get; set; }
+
+        // Optional - agar Doctor ke patients count chahiye list me
+        public int TotalAppointments { get; set; }
     }
 }

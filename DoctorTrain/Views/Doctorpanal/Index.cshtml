@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.DoctorDto>
+
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<style>
+    .card:hover {
+        transform: scale(1.02);
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 0.95rem;
+    }
+
+    .view-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .view-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="container my-4">
+    <h2 class="text-center mb-4">👨‍⚕️ Doctors</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var doctor in Model)
+        {
+            <div class="col mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="@doctor.ImageUrl" class="card-img-top" alt="@doctor.FullName" />
+                    <div class="card-body">
+                        <h5 class="card-title">@doctor.FullName</h5>
+                        <p class="card-text">
+                            <strong>Specialization:</strong> @doctor.Specialization<br />
+                            <strong>Email:</strong> @doctor.Email<br />
+                            <strong>Mobile:</strong> @doctor.Mobile
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white d-flex justify-content-end">
+                        <form asp-action="StatesView" asp-controller="DoctorSchedule" method="post" class="w-100">
+                            <input type="hidden" name="id" value="@doctor.Id" />
+                            <button type="submit" class="btn btn-light w-100">StatesView</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,5 +1,6 @@
 ﻿using DoctorTrain.Business_Layer.Interface;
 using DoctorTrain.Model.Dto;
+using DoctorTrain.Model.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,8 +36,8 @@ namespace DoctorTrain.Controllers
         // Create new doctor schedule
         public async Task<IActionResult> Create()
         {
-            ViewBag.Doctors= await _service.GetDoctorsAsync();
-            ViewBag.Hospitals= await _service.GetHospitalAsync();
+            ViewBag.Doctors = await _service.GetDoctorsAsync();
+            ViewBag.Hospitals = await _service.GetHospitalAsync();
             return View();
         }
 
@@ -104,6 +105,11 @@ namespace DoctorTrain.Controllers
         {
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> StatesView(int id)
+        {
+            var doctors = await _service.GetSchedulesByDoctorIdAsync(id);
+            return View(doctors);
         }
     }
 }

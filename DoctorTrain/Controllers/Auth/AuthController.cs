@@ -23,20 +23,26 @@ namespace DoctorTrain.Controllers
             if (!ModelState.IsValid)
                 return View(dto);
 
-            var role = await _authService.LoginAsync(dto);
-            if (string.IsNullOrEmpty(role))
+            var result = await _authService.LoginAsync(dto);
+            if (result == "InvalidEmail")
             {
-                ModelState.AddModelError("", "Invalid Email or Password");
+                ModelState.AddModelError("Email", "Email is incorrect.");
                 return View(dto);
             }
-
-            return role switch
+            else if (result == "InvalidPassword")
             {
-                "Admin" => RedirectToAction("Index", "Admin"),
-                "Doctor" => RedirectToAction("Index", "Doctors"),
-                "Patient" => RedirectToAction("Index", "Patients"),
-                _ => RedirectToAction("Login")
-            };
+                ModelState.AddModelError("Password", "Password is incorrect.");
+                return View(dto);
+            }
+            // role ke hisab se redirect
+            if (result == "Admin")
+                return RedirectToAction("Index", "Admin");
+            else if (result == "Doctor")
+                return RedirectToAction("Index", "Doctors");
+            else if (result == "Patient")
+                return RedirectToAction("Index", "Patient");
+            else
+                return RedirectToAction("Login", "Auth"); // default
         }
 
         // ========== REGISTRATION OPTIONS ==========

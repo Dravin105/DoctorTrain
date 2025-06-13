@@ -7,6 +7,6 @@
         public TimeSpan ArrivalTime { get; set; }
         public TimeSpan DepartureTime { get; set; }
         public string DayOfWeek { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

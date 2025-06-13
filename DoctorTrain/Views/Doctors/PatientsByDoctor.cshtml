@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.PatientDto>
+@{
+    ViewData["Title"] = "Doctors List";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h2>Patients for Doctor</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.FirstName</td>
+                <td>@patient.Email</td>
+                <td>@patient.Mobile</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -109,15 +109,16 @@ namespace DoctorTrain.Business_Layer.Service.AuthService
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
-                return "User not found.";
+                return "InvalidEmail";
 
             var result = await _signInManager.PasswordSignInAsync(user, dto.Password, false, false);
             if (!result.Succeeded)
-                return "Invalid email or password.";
+                return "InvalidPassword";
 
             var roles = await _userManager.GetRolesAsync(user);
             return roles.FirstOrDefault() ?? "No role assigned.";
         }
+
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
