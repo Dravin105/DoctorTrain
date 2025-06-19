@@ -1,0 +1,65 @@
+﻿@model DoctorTrain.Model.Dto.ContactFormDto
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Contact Us</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    else if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        <!-- Contact Info -->
+        <div class="col-md-6 mb-4">
+            <h4 class="text-success mb-3">Get in Touch</h4>
+            <p class="text-muted">Have a question or need help? Reach out to us anytime.</p>
+            <ul class="list-unstyled">
+                <li><strong>Address:</strong> 123, DoctorTrain Street, New Delhi, India</li>
+                <li><strong>Phone:</strong> +91 9876543210</li>
+                <li><strong>Email:</strong> support@doctortrain.com</li>
+                <li><strong>Working Hours:</strong> Mon - Sat (9:00 AM to 6:00 PM)</li>
+            </ul>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-6">
+            <h4 class="text-success mb-3">Send us a Message</h4>
+
+            <form asp-action="Contact" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Message" class="form-label"></label>
+                    <textarea asp-for="Message" class="form-control" rows="4" placeholder="Type your message here..."></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

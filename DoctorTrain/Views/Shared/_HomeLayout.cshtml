@@ -1,88 +1,173 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using DoctorTrain.Business_Layer.Interface
+@using DoctorTrain.Model.Dto  <!-- Replace with actual namespace -->
+@inject IContactMessageService contactService
+
+@{
+    var userName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+    var role = User.FindFirst(ClaimTypes.Role)?.Value;
+    var initial = !string.IsNullOrEmpty(userName) ? userName[0].ToString().ToUpper() : "";
+    var dashboardLink = role switch
+    {
+        "Admin" => Url.Action("Index", "Admin"),
+        "Doctor" => Url.Action("Index", "Doctor"),
+        "Patient" => Url.Action("Index", "Patient"),
+        _ => "#"
+    };
+
+    var unreadMessages = User.IsInRole("Admin") ? await contactService.GetUnreadAsync() : new List<ContactFormDto>();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>DoctorTrain | Best Medical Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-       
-
         body {
-            background-color: #f9f9;
-
+            background-color: #f9f9f9;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .navbar-custom {
-            background-color: #fff;
-            border-bottom: 2px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #2b7a78;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .navbar-brand {
             font-weight: bold;
-            color: #2b7a78;
+            color: #fff !important;
+            font-size: 24px;
         }
 
         .nav-link {
-            color: #333 !important;
+            color: #fff !important;
             font-weight: 500;
+            margin-right: 15px;
         }
 
             .nav-link:hover {
-                color: #2b7a78 !important;
+                color: #def2f1 !important;
             }
 
         .login-btn {
-            background-color: #2b7a78;
+            background-color: #3aafa9;
             color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
         }
 
             .login-btn:hover {
-                background-color: #205f5b;
+                background-color: #2b7a78;
             }
 
-        .cards-container {
-            padding: 40px 20px;
+        .circle-btn {
+            background-color: #3aafa9;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex; /* Flexbox for centering */
+            align-items: center; /* Vertical center */
+            justify-content: center; /* Horizontal center */
+            font-weight: bold;
+            font-size: 18px;
+            text-decoration: none;
+            padding: 0; /* Remove padding to avoid shift */
+            border: none;
         }
 
-        .card-title {
-            color: #2b7a78;
-        }
+            .circle-btn:hover {
+                background-color: #2b7a78;
+                color: #fff;
+            }
 
-        
+        footer {
+            background-color: #2b7a78;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom px-4">
+    <nav class="navbar navbar-expand-lg navbar-custom px-4 sticky-top">
         <a class="navbar-brand" href="#">DoctorTrain</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon bg-light"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Homes" asp-action="Index">Home</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Doctorpanal" asp-action="Index">Doctorpanal</a>
+                    <a class="nav-link" asp-controller="Homes" asp-action="About">About</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Homes" asp-action="Contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Doctorpanal" asp-action="Index">Doctor Panel</a>
+                </li>
             </ul>
-            <a class="btn login-btn" asp-controller="Auth" asp-action="Login">Login</a>
+
+            <!-- Right side: Notification + User -->
+            <ul class="navbar-nav ms-auto align-items-center">
+                @if (User.IsInRole("Admin"))
+                {
+                    @await Html.PartialAsync("_NotificationPartial", unreadMessages)
+                }
+
+                <li class="nav-item dropdown ms-3">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <a class="btn circle-btn dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                @initial
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
+                                <li class="w-100 text-center">
+                                    <strong>@userName</strong>
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="@dashboardLink">Dashboard</a></li>
+                                <li>
+                                    <form asp-controller="Auth" asp-action="Logout" method="post">
+                                        <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <a class="btn login-btn" asp-controller="Auth" asp-action="Login">Login</a>
+                    }
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Carousel -->
-    
-
-    <div class="container mb-5">
+    <!-- Body -->
+    <div class="container-fluid">
         @RenderBody()
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 DoctorTrain. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -36,11 +36,11 @@ namespace DoctorTrain.Controllers
             }
             // role ke hisab se redirect
             if (result == "Admin")
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Homes");
             else if (result == "Doctor")
-                return RedirectToAction("Index", "Doctors");
+                return RedirectToAction("Index", "Homes");
             else if (result == "Patient")
-                return RedirectToAction("Index", "Patient");
+                return RedirectToAction("Index", "Homes");
             else
                 return RedirectToAction("Login", "Auth"); // default
         }

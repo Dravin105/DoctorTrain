@@ -23,6 +23,7 @@
             <!-- Details Section -->
             <div class="col-md-8">
                 <h3 class="fw-semibold">@Model.FullName</h3>
+                <h3 class="fw-semibold">@Model.AboutDescription</h3>
                 <span class="badge bg-info text-dark mb-3">@Model.Specialization</span>
                 <hr />
 
@@ -30,11 +31,19 @@
                     <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i> Full Name</dt>
                     <dd class="col-sm-8">@Model.FullName</dd>
 
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i>Qualification</dt>
+                    <dd class="col-sm-8">@Model.Qualification</dd>
+
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i> ExperienceYears </dt>
+                    <dd class="col-sm-8">@Model.ExperienceYears</dd>
+
                     <dt class="col-sm-4 text-muted"><i class="bi bi-envelope-fill"></i> Email</dt>
                     <dd class="col-sm-8">@Model.Email</dd>
 
                     <dt class="col-sm-4 text-muted"><i class="bi bi-phone-fill"></i> Mobile</dt>
                     <dd class="col-sm-8">@Model.Mobile</dd>
+
+                   
                 </dl>
             </div>
         </div>

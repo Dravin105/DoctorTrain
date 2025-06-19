@@ -14,6 +14,7 @@ namespace DoctorTrain.DatabaseConection
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
     }
 
 }

@@ -23,6 +23,7 @@ builder.Services.AddScoped<IHospitalService, HospitalService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAuthService, AuthHospitalService>();
+builder.Services.AddScoped<IContactMessageService, ContactMessageService>();
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>

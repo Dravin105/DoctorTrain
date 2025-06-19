@@ -1,8 +1,87 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Banner Section -->
+<div class="banner text-center bg-primary text-white py-5">
+    <h1>Book Your Doctor Like a Train</h1>
+    <p>Find the best doctors in your city and book appointments easily!</p>
+</div>
+
+<!-- Search Section -->
+<div class="container my-4">
+    <form method="get" asp-action="SearchDoctors">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control" name="specialist" required>
+                    <option value="">-- Select Specialist --</option>
+                    <option>Cardiologist</option>
+                    <option>Dentist</option>
+                    <option>Dermatologist</option>
+                    <!-- Add more specialists -->
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" name="location" required>
+                    <option value="">-- Select Location --</option>
+                    <option>Delhi</option>
+                    <option>Mumbai</option>
+                    <option>Chennai</option>
+                    <!-- Add more locations -->
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success w-100">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Featured Doctors Carousel -->
+<div class="container my-5">
+    <h3 class="text-center mb-4">Featured Doctors</h3>
+    <div id="doctorCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active text-center">
+                <img src="doctor1.jpg" class="d-block mx-auto" alt="Doctor 1" style="height:200px;">
+                <h5>Dr. A Sharma - Cardiologist</h5>
+            </div>
+            <div class="carousel-item text-center">
+                <img src="doctor2.jpg" class="d-block mx-auto" alt="Doctor 2" style="height:200px;">
+                <h5>Dr. B Verma - Dentist</h5>
+            </div>
+            <!-- Add more items -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#doctorCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#doctorCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<!-- Steps Section -->
+<div class="container my-5">
+    <h3 class="text-center mb-4">How It Works</h3>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <h4>1. Search Doctor</h4>
+                <p>Find doctors by specialist & location.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <h4>2. Choose Hospital & Time</h4>
+                <p>Select hospital and preferred time slot.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <h4>3. Book Token</h4>
+                <p>Book your token and get confirmation.</p>
+            </div>
+        </div>
+    </div>
 </div>

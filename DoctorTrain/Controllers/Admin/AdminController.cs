@@ -12,13 +12,15 @@ namespace DoctorTrain.Controllers
         private readonly IDoctorService _doctorService;
         private readonly IHospitalService _hospitalService;
         private readonly IPatientService _patientService;
+        private readonly IContactMessageService _contactService;
 
         // Constructor where the services are injected
-        public AdminController(IDoctorService doctorService, IHospitalService hospitalService, IPatientService patientService)
+        public AdminController(IDoctorService doctorService, IHospitalService hospitalService, IPatientService patientService, IContactMessageService contactService)
         {
             _doctorService = doctorService;
             _hospitalService = hospitalService;
             _patientService = patientService;
+            _contactService = contactService;
         }
 
         // Dashboard page for Admin
@@ -198,7 +200,28 @@ namespace DoctorTrain.Controllers
             var hospital = await _patientService.GetPatientByIdAsync(id);
             return View(hospital);
         }
+        //
+        public async Task<IActionResult> Messages()
+        {
+            var allMessages = await _contactService.GetAllAsync();
+            return View(allMessages);
+        }
+
+        public async Task<IActionResult> UnreadCount()
+        {
+            var unreadMessages = await _contactService.GetUnreadAsync();
+
+            foreach (var msg in unreadMessages)
+            {
+                await _contactService.MarkAsReadAsync(msg.Id); // sab message read mark karo
+            }
+
+            var allMessages = await _contactService.GetAllAsync();
+            return View(allMessages);
+        }
+
     }
+
 
     // Additional methods as per your requirements
 }

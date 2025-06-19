@@ -52,7 +52,11 @@
                     <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label asp-for="Qualification" class="form-label"></label>
+                    <input asp-for="Qualification" class="form-control" placeholder="Enter Qualification Details" />
+                    <span asp-validation-for="Qualification" class="text-danger"></span>
+                </div>
                 <div class="mb-3">
                     <label asp-for="Specialization" class="form-label"></label>
                     <select asp-for="Specialization" class="form-select">
@@ -63,7 +67,11 @@
                     </select>
                     <span asp-validation-for="Specialization" class="text-danger"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label asp-for="ExperienceYears" class="form-label"></label>
+                    <input asp-for="ExperienceYears" class="form-control" placeholder="Enter you Experience" />
+                    <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                </div>
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label"></label>
                     <input asp-for="Email" class="form-control" placeholder="example@domain.com" />
@@ -75,7 +83,11 @@
                     <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
                     <span asp-validation-for="Mobile" class="text-danger"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label asp-for="AboutDescription" class="form-label"></label>
+                    <textarea asp-for="AboutDescription" class="form-control" rows="4" placeholder="Type your message here..." required></textarea>
+                    <span asp-validation-for="AboutDescription" class="text-danger"></span>
+                </div>
                 <div class="mb-3">
                     <label asp-for="ImageFile" class="form-label">Upload Image</label>
                     <input asp-for="ImageFile" type="file" class="form-control" />
