@@ -2,81 +2,107 @@
 @model DoctorTrain.Model.Dto.AppointmentReadDto
 
 @{
-    ViewData["Title"] = "Create Appointment";
+    ViewData["Title"] = "Book Appointment";
+    // Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">📝 Book Appointment</h4>
-        </div>
-        <div class="card-body">
-            <form asp-action="Create" novalidate>
-                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+<style>
+    .appointment-background {
+        background: url('/images/medical.jpg') no-repeat center center;
+        background-size: cover;
+        padding: 80px 0;
+    }
 
-                <!-- Patient Dropdown -->
-                <div class="mb-3">
-                    <label for="PatientId" class="form-label">Patient</label>
-                    <select class="form-select" id="PatientId" name="PatientId" required>
-                        <option value="">-- Select Patient --</option>
-                        @foreach (var patient in ViewBag.Patients as List<PatientDto>)
-                        {
-                            <option value="@patient.Id">@patient.FirstName</option>
-                        }
-                    </select>
-                </div>
+    .appointment-form {
+        background-color: rgba(0, 0, 50, 0.7);
+        padding: 40px;
+        border-radius: 10px;
+        color: #fff;
+    }
 
-                <!-- Mobile Number -->
-                <div class="mb-3">
-                    <label asp-for="Mobile" class="form-label"></label>
-                    <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
-                    <span asp-validation-for="Mobile" class="text-danger"></span>
-                </div>
+        .appointment-form label {
+            color: #fff;
+        }
 
-                <!-- Doctor Dropdown -->
-                <div class="mb-3">
-                    <label for="DoctorId" class="form-label">Doctor</label>
-                    <select class="form-select" id="DoctorId" name="DoctorId" required>
-                        <option value="">-- Select Doctor --</option>
-                        @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
-                        {
-                            <option value="@doctor.Id">@doctor.FullName</option>
-                        }
-                    </select>
-                </div>
+    .btn-appointment {
+        background-color: #fdbb28;
+        color: #000;
+        font-weight: bold;
+        border: none;
+    }
 
-                <!-- Hospital Dropdown -->
-                <div class="mb-3">
-                    <label for="HospitalId" class="form-label">Hospital</label>
-                    <select class="form-select" id="HospitalId" name="HospitalId" required>
-                        <option value="">-- Select Hospital --</option>
-                        @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
-                        {
-                            <option value="@hospital.Id">@hospital.Name</option>
-                        }
-                    </select>
-                </div>
+        .btn-appointment:hover {
+            background-color: #f5a623;
+            color: #fff;
+        }
+</style>
 
-                <!-- Appointment Date and Time -->
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Date" class="form-label"></label>
-                        <input asp-for="Date" class="form-control" type="date" />
-                        <span asp-validation-for="Date" class="text-danger"></span>
+<div class="appointment-background">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 appointment-form">
+                <h2 class="text-center mb-4">🩺 Medical Appointment Form</h2>
+                <form asp-action="Create" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="PatientId" class="form-label">Patient</label>
+                            <select class="form-select" id="PatientId" name="PatientId" required>
+                                <option value="">-- Select Patient --</option>
+                                @foreach (var patient in ViewBag.Patients as List<PatientDto>)
+                                {
+                                    <option value="@patient.Id">@patient.FirstName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Mobile" class="form-label"></label>
+                            <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="DoctorId" class="form-label">Doctor</label>
+                            <select class="form-select" id="DoctorId" name="DoctorId" required>
+                                <option value="">-- Select Doctor --</option>
+                                @foreach (var doctor in ViewBag.Doctors as List<DoctorDto>)
+                                {
+                                    <option value="@doctor.Id">@doctor.FullName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="HospitalId" class="form-label">Hospital</label>
+                            <select class="form-select" id="HospitalId" name="HospitalId" required>
+                                <option value="">-- Select Hospital --</option>
+                                @foreach (var hospital in ViewBag.Hospitals as List<HospitalDto>)
+                                {
+                                    <option value="@hospital.Id">@hospital.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Date" class="form-label"></label>
+                            <input asp-for="Date" class="form-control" type="date" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Time" class="form-label"></label>
+                            <input asp-for="Time" class="form-control" type="time" />
+                            <span asp-validation-for="Time" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Time" class="form-label"></label>
-                        <input asp-for="Time" class="form-control" type="time" />
-                        <span asp-validation-for="Time" class="text-danger"></span>
-                    </div>
-                </div>
 
-                <!-- Buttons -->
-                <div class="d-flex justify-content-between mt-4">
-                    <a asp-action="Index" class="btn btn-outline-secondary">⬅ Back to List</a>
-                    <button type="submit" class="btn btn-primary">📅 Book Appointment</button>
-                </div>
-            </form>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-appointment px-5 py-2">Make an Appointment</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

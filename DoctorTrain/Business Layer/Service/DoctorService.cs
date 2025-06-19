@@ -41,6 +41,28 @@ namespace DoctorTrain.Business_Layer.Service
             try
             {
                 var doctor = _mapper.Map<Doctor>(doctorDto);
+
+                // Image Save Logic
+                if (doctorDto.ImageFile != null && doctorDto.ImageFile.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(doctorDto.ImageFile.FileName);
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "doctors");
+
+                    if (!Directory.Exists(imagePath))
+                    {
+                        Directory.CreateDirectory(imagePath);
+                    }
+
+                    var fullPath = Path.Combine(imagePath, fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await doctorDto.ImageFile.CopyToAsync(stream);
+                    }
+
+                    doctor.ImageUrl = "/Images/doctors/" + fileName;
+                }
+
                 await _context.Doctors.AddAsync(doctor);
                 await _context.SaveChangesAsync();
             }
@@ -59,9 +81,27 @@ namespace DoctorTrain.Business_Layer.Service
             doctor.Email = doctorDto.Email;
             doctor.Mobile = doctorDto.Mobile;
 
+            // 🖼️ Handle Image Upload
+            if (doctorDto.ImageFile != null && doctorDto.ImageFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "doctors");
+                Directory.CreateDirectory(uploadsFolder); // Ensure folder exists
+
+                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(doctorDto.ImageFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await doctorDto.ImageFile.CopyToAsync(fileStream);
+                }
+
+                doctor.ImageUrl = "/Images/doctors/" + uniqueFileName;
+            }
+
             _context.Update(doctor);
             await _context.SaveChangesAsync();
         }
+
 
         public async Task DeleteDoctorAsync(int id)
         {

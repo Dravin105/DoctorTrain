@@ -1,0 +1,150 @@
+﻿@model DoctorTrain.ViewModels.HomeViewModel
+<style>
+    .carousel-img {
+        height: 500px;
+        object-fit: cover;
+    }
+
+    .steps-section {
+        background-color: #def2f1;
+        padding: 30px 0;
+        border-radius: 10px;
+    }
+
+    .step {
+        padding: 20px;
+    }
+
+        .step h4 {
+            color: #2b7a78;
+        }
+
+        .step p {
+            color: #555;
+        }
+
+    .doctor-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px;
+        transition: transform 0.3s;
+        background-color: #fff;
+    }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+</style>
+
+<!-- Carousel -->
+<div id="carouselExampleCaptions" class="carousel slide mt-3" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/Image/Slider1.jpg" class="d-block w-100 carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Book Your Doctor Like a Train</h5>
+                <p>Fast, Easy & Reliable Doctor Appointments.</p>
+            </div>
+        </div>
+        <!-- Add more carousel items here if needed -->
+    </div>
+</div>
+
+<!-- Steps Section -->
+<section class="steps-section text-center my-5">
+    <h2>How It Works</h2>
+    <div class="row mt-4">
+        <div class="col-md-4 step">
+            <h4>1. Search Doctor</h4>
+            <p>Find doctors by specialist & location.</p>
+        </div>
+        <div class="col-md-4 step">
+            <h4>2. Choose Hospital & Time</h4>
+            <p>Select your hospital and preferred time slot.</p>
+        </div>
+        <div class="col-md-4 step">
+            <h4>3. Book Token</h4>
+            <p>Book your token and receive confirmation.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Doctors Section -->
+<h2 class="mb-4 text-primary text-center">Our Doctors</h2>
+<div class="d-flex flex-wrap justify-content-center">
+    @foreach (var doctor in Model.Doctors)
+    {
+        @Html.Partial("_DoctorCard", doctor)
+    }
+</div>
+
+<!-- Contact Us Section (added at bottom) -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Contact Us</h2>
+    <div class="row">
+        <!-- Contact Info -->
+        <div class="col-md-6 mb-4">
+            <h4 class="text-success mb-3">Get in Touch</h4>
+            <p class="text-muted">
+                Have a question or need help? Reach out to us anytime.
+            </p>
+            <ul class="list-unstyled">
+                <li><strong>Address:</strong> 123, DoctorTrain Street, New Delhi, India</li>
+                <li><strong>Phone:</strong> +91 9876543210</li>
+                <li><strong>Email:</strong> support@doctortrain.com</li>
+                <li><strong>Working Hours:</strong> Mon - Sat (9:00 AM to 6:00 PM)</li>
+            </ul>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-6">
+            <h4 class="text-success mb-3">Send us a Message</h4>
+            <form asp-controller="Homes" asp-action="Contact" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="ContactForm.Name" class="form-label">Your Name</label>
+                    <input asp-for="ContactForm.Name" class="form-control" placeholder="Enter your name" />
+                    <span asp-validation-for="ContactForm.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactForm.Email" class="form-label">Your Email</label>
+                    <input asp-for="ContactForm.Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="ContactForm.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ContactForm.Message" class="form-label">Your Message</label>
+                    <textarea asp-for="ContactForm.Message" class="form-control" rows="4" placeholder="Type your message here..."></textarea>
+                    <span asp-validation-for="ContactForm.Message" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- About Us Section (added at bottom) -->
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">About DoctorTrain</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="~/Image/d1.jpg" alt="About Us" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center">
+            <h4 class="text-success mb-3">Your Health, Our Priority</h4>
+            <p class="text-muted">
+                DoctorTrain is India’s leading platform to book doctor appointments with ease. Book doctors like booking train tickets.
+            </p>
+            <ul class="list-unstyled">
+                <li>✔️ Search Specialists & Hospitals</li>
+                <li>✔️ Book Appointments Instantly</li>
+                <li>✔️ Get 24/7 Health Support</li>
+            </ul>
+        </div>
+    </div>
+</div>

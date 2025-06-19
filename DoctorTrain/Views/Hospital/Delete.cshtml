@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Delete Hospital</h2>
@@ -13,7 +14,8 @@
 <div class="card">
     <div class="card-body">
         <h4>@Model.Name</h4>
-        <p><strong>Location:</strong> @Model.Location</p>
+        <p><strong>ContactLocation:</strong> @Model.ContactLocation</p>
+        <p><strong>District:</strong> @Model.District</p>
     </div>
 </div>
 

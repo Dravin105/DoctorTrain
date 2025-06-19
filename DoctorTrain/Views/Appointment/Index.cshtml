@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Appointments List";
-}
+//     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+ }
 
 <h2>@ViewData["Title"]</h2>
 
@@ -28,7 +29,11 @@
         {
             <tr>
                 <td>@item.Id</td>
-                <td>@item.PatientName</td>
+                <td>
+                    <a asp-controller="Patient" asp-action="PatientDetails" asp-route-id="@item.Id">
+                        @item.PatientName
+                    </a>
+                </td>
                 <td>@item.Mobile</td>
                 <td>@item.DoctorName</td>
                 <td>@item.HospitalName</td>

@@ -31,6 +31,9 @@ namespace DoctorTrain.Profile_AutoMapper_
            CreateMap<Appointment, AppointmentReadDto>().ReverseMap();
             CreateMap<Patient, PatientDto>().ReverseMap();
 
+            // this is ContactMessage 
+            CreateMap<ContactFormDto, ContactMessage>().ReverseMap();
+
         }
     }
 }

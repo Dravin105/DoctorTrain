@@ -1,9 +1,11 @@
 ﻿using DoctorTrain.Model.Models;
+using DoctorTrain.Model.Models.Auth;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoctorTrain.DatabaseConection
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -12,6 +14,7 @@ namespace DoctorTrain.DatabaseConection
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
     }
 
 }

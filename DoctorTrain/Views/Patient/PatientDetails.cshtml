@@ -1,0 +1,108 @@
+﻿@model DoctorTrain.Model.Dto.PatientDto
+
+@{
+    ViewData["Title"] = "Patient Details";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+
+}
+
+<style>
+    .container {
+        background: linear-gradient(to right, #134e5e, #71b280);
+        padding: 30px;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .btn-warning {
+        background-color: #fdbb28;
+        border-color: #fdbb28;
+        color: #000;
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+        .btn-warning:hover {
+            background-color: #f5a623;
+            color: #fff;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .details-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fdbb28;
+        margin-bottom: 20px;
+    }
+
+    .patient-info dt {
+        font-weight: bold;
+        color: #fdbb28;
+    }
+
+    .patient-info dd {
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    .back-link {
+        margin-top: 20px;
+        display: inline-block;
+        color: #fdbb28;
+        font-weight: bold;
+    }
+
+        .back-link:hover {
+            color: #fff;
+        }
+</style>
+
+<div class="container my-5">
+    <h1 class="text-center details-heading">Patient Details</h1>
+    <h4 class="text-center mb-4">Complete Patient Information</h4>
+    <hr />
+
+    <div class="patient-info">
+        <dl class="row">
+            <dt class="col-sm-2">FirstName</dt>
+            <dd class="col-sm-10">@Model.FirstName</dd>
+
+            <dt class="col-sm-2">Address</dt>
+            <dd class="col-sm-10">@Model.Address</dd>
+
+            <dt class="col-sm-2">Gender</dt>
+            <dd class="col-sm-10">@Model.Gender</dd>
+
+            <dt class="col-sm-2">Date of Birth</dt> <!-- DOB Added Here -->
+            <dd class="col-sm-10">@Model.DOB.ToString("dd-MM-yyyy")</dd>
+
+            <dt class="col-sm-2">Blood Group</dt>
+            <dd class="col-sm-10">@Model.BloodGruop</dd>
+
+            <dt class="col-sm-2">Mobile</dt>
+            <dd class="col-sm-10">@Model.Mobile</dd>
+
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10">@Model.Email</dd>
+        </dl>
+    </div>
+
+    <div class="text-center">
+        <a href="@Url.Action("PatientEdit", "Patient", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+        <a href="@Url.Action("PatientProfile", "Patient")" class="btn btn-secondary">Back to List</a>
+    </div>
+
+</div>

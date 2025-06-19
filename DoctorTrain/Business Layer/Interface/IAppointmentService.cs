@@ -8,10 +8,12 @@ namespace DoctorTrain.Business_Layer.Interface
         Task<List<AppointmentDto>> GetAllAppointmentsAsync();
         Task<AppointmentDto> GetAppointmentByIdAsync(int id);
         Task<bool> DeleteAppointmentAsync(int id);
-        Task CreateAsync(AppointmentReadDto dto);
+        Task<Appointment> CreateAsync(AppointmentReadDto dto);
         Task UpdateAsync(int id, AppointmentReadDto dto);
         Task<List<HospitalDto>> GetHospitalsAsync();
         Task<List<DoctorDto>> GetDoctorsAsync();
         Task<List<PatientDto>> GetPatientAsync();
+        Task<int> GetAppointmentCountByDoctorIdAsync(int doctorId);
+        Task<List<PatientDto>> GetPatientsByDoctorIdAsync(int doctorId);
     }
 }

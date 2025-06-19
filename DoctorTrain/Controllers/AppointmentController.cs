@@ -1,12 +1,15 @@
 ﻿using DoctorTrain.Business_Layer.Interface;
 using DoctorTrain.Business_Layer.Service;
 using DoctorTrain.Model.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace DoctorTrain.Controllers
 {
+    
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _iAppointmentService;
@@ -15,8 +18,9 @@ namespace DoctorTrain.Controllers
         {
             _iAppointmentService = iAppointmentService;
         }
-
+      
         [HttpGet]
+         
         public async Task<IActionResult> Index()
         {
             var result = await _iAppointmentService.GetAllAppointmentsAsync();
@@ -47,6 +51,8 @@ namespace DoctorTrain.Controllers
             return View(dto);
 
         }
+       
+
         public async Task<IActionResult> Edit()
         {
             ViewBag.Doctors = await _iAppointmentService.GetDoctorsAsync();

@@ -1,0 +1,56 @@
+﻿@model DoctorTrain.Model.Dto.AppointmentDto
+
+@{
+    ViewData["Title"] = "Delete Appointment";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-trash3-fill"></i> Confirm Delete Appointment
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <p class="text-muted">Are you sure you want to delete the following appointment?</p>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-4 fw-semibold">Appointment ID</dt>
+                <dd class="col-sm-8">@Model.Id</dd>
+
+                <dt class="col-sm-4 fw-semibold">Mobile</dt>
+                <dd class="col-sm-8">@Model.Mobile</dd>
+
+                <dt class="col-sm-4 fw-semibold">Doctor Name</dt>
+                <dd class="col-sm-8">@Model.DoctorName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Hospital Name</dt>
+                <dd class="col-sm-8">@Model.HospitalName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Patient Name</dt>
+                <dd class="col-sm-8">@Model.PatientName</dd>
+
+                <dt class="col-sm-4 fw-semibold">Date</dt>
+                <dd class="col-sm-8">@Model.Date.ToString("dd MMM yyyy")</dd>
+
+                <dt class="col-sm-4 fw-semibold">Time</dt>
+                <dd class="col-sm-8">@Model.Time.ToString(@"hh\:mm")</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        🗑 Delete Appointment
+                    </button>
+                    <a asp-action="AppointmentList" class="btn btn-outline-secondary">
+                        ⬅ Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -84,5 +84,16 @@ namespace DoctorTrain.Business_Layer.Service
                 await _context.SaveChangesAsync();
             }
         }
+        // All Doctor Listed by ID , Doctorpanal
+        public async Task<List<DoctorScheduleDto>> GetSchedulesByDoctorIdAsync(int doctorId)
+        {
+            var schedules = await _context.DoctorSchedules
+                .Include(ds => ds.Doctor)
+                .Include(ds => ds.Hospital)
+                .Where(ds => ds.DoctorId == doctorId)
+                .ToListAsync();
+
+            return _mapper.Map<List<DoctorScheduleDto>>(schedules);
+        }
     }
 }

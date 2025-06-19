@@ -12,5 +12,6 @@ namespace DoctorTrain.Business_Layer.Interface
         Task DeleteAsync(int id);
         Task<List<DoctorDto>> GetDoctorsAsync();
         Task<List<HospitalDto>> GetHospitalAsync();
+        Task<List<DoctorScheduleDto>> GetSchedulesByDoctorIdAsync(int doctorId);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using DoctorTrain.Business_Layer.Interface;
 using DoctorTrain.Model.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorTrain.Controllers
 {
+    [Authorize(Roles = "Doctor")]
     public class DoctorController : Controller
     {
         private readonly IDoctorService _doctorService;

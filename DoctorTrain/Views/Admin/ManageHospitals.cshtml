@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DoctorTrain.Model.Dto.HospitalDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a asp-action="HospitalsCreate" class="btn btn-primary mb-3">Add New Hospital</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>ContactLocation</th>
+            <th>District</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hospital in Model)
+        {
+            <tr>
+                <td>@hospital.Name</td>
+                <td>@hospital.ContactLocation</td>
+                <td>@hospital.District</td>
+                <td>
+                    <a asp-action="HospitalsDetails" asp-route-id="@hospital.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="HospitalsEdit" asp-route-id="@hospital.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="HospitalsDelete" asp-route-id="@hospital.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

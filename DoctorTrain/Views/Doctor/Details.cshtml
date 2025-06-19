@@ -2,34 +2,54 @@
 
 @{
     ViewData["Title"] = "Doctor Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 class="mb-4">Doctor Details</h2>
+<h2 class="mb-4 text-primary fw-bold text-center">
+    <i class="bi bi-person-vcard"></i> Doctor Details
+</h2>
 
-<div class="card shadow-sm border-0">
-    <div class="card-body">
-        <h4 class="card-title">@Model.FullName</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-3 text-muted">ID</dt>
-            <dd class="col-sm-9">@Model.Id</dd>
+<div class="container">
+    <div class="card shadow-lg border-0 rounded-4 p-5 mx-auto" style="max-width: 1000px;">
+        <div class="row g-4 align-items-center">
+            <!-- Image Section -->
+            <div class="col-md-4 text-center">
+                <img src="@Model.ImageUrl"
+                     class="img-thumbnail rounded-circle shadow-sm border"
+                     style="width: 220px; height: 220px; object-fit: cover;"
+                     alt="Doctor Image" />
+            </div>
 
-            <dt class="col-sm-3 text-muted">Full Name</dt>
-            <dd class="col-sm-9">@Model.FullName</dd>
+            <!-- Details Section -->
+            <div class="col-md-8">
+                <h3 class="fw-semibold">@Model.FullName</h3>
+                <h3 class="fw-semibold">@Model.AboutDescription</h3>
+                <span class="badge bg-info text-dark mb-3">@Model.Specialization</span>
+                <hr />
 
-            <dt class="col-sm-3 text-muted">Specialization</dt>
-            <dd class="col-sm-9">@Model.Specialization</dd>
+                <dl class="row fs-6">
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i> Full Name</dt>
+                    <dd class="col-sm-8">@Model.FullName</dd>
 
-            <dt class="col-sm-3 text-muted">Email</dt>
-            <dd class="col-sm-9">@Model.Email</dd>
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i>Qualification</dt>
+                    <dd class="col-sm-8">@Model.Qualification</dd>
 
-            <dt class="col-sm-3 text-muted">Mobile</dt>
-            <dd class="col-sm-9">@Model.Mobile</dd>
-        </dl>
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-person-fill"></i> ExperienceYears </dt>
+                    <dd class="col-sm-8">@Model.ExperienceYears</dd>
+
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-envelope-fill"></i> Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4 text-muted"><i class="bi bi-phone-fill"></i> Mobile</dt>
+                    <dd class="col-sm-8">@Model.Mobile</dd>
+
+                   
+                </dl>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="mt-4">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary me-2" })
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-outline-secondary">🔙 Back to List</a>
+    </div>
 </div>

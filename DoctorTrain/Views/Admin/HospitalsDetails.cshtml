@@ -1,0 +1,23 @@
+﻿@model DoctorTrain.Model.Dto.HospitalDto
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Hospital Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4>@Model.Name</h4>
+        <p><strong>ContactLocation:</strong> @Model.ContactLocation</p>
+        <p><strong>District:</strong> @Model.District</p>
+    </div>
+</div>
+
+<a asp-action="HospitalsEdit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="ManageHospitals" class="btn btn-secondary">Back to List</a>
+<div>
+    @Html.ActionLink("HospitalsEdit", "HospitalsEdit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="ManageHospitals">Back to List</a>
+</div>

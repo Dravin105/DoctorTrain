@@ -1,0 +1,29 @@
+﻿@model List<DoctorTrain.Model.Dto.DoctorScheduleDto>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Doctor's Schedules Across Hospitals</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.HospitalName</h5>
+                        <p class="card-text">
+                            <strong>Doctor:</strong> @item.DoctorName<br />
+                            <strong>Day:</strong> @item.DayOfWeek<br />
+                            <strong>Arrival Time:</strong> @item.ArrivalTime.ToString(@"hh\:mm")<br />
+                            <strong>Departure Time:</strong> @item.DepartureTime.ToString(@"hh\:mm")
+                        </p>
+                        <div class="card-footer bg-white d-flex justify-content-end">
+                            <form asp-action="Index" asp-controller="Appointment" method="post" class="w-100">
+                                <button type="submit" class="btn btn-light w-100">StatesView</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
