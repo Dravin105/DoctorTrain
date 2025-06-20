@@ -42,3 +42,24 @@
         }
     </ul>
 </li>
+
+
+@section Scripts {
+    <script>
+               $(document).ready(function () {
+            $('#notifDropdown').on('click', function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/Contact/MarkAllAsRead',
+                    success: function () {
+                        $("#notificationArea").load('/Contact/UnreadCount');
+                    }
+                });
+            });
+
+            setInterval(function () {
+                $("#notificationArea").load('/Contact/UnreadCount');
+            }, 30000);
+        });
+    </script>
+}

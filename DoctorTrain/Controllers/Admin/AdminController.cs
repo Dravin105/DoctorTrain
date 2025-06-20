@@ -201,24 +201,32 @@ namespace DoctorTrain.Controllers
             return View(hospital);
         }
         //
+        // Show all messages (AdminMessages page ke liye)
         public async Task<IActionResult> Messages()
         {
             var allMessages = await _contactService.GetAllAsync();
             return View(allMessages);
         }
 
+        // Unread count fetch karne ke liye (Partial View return karega)
         public async Task<IActionResult> UnreadCount()
         {
             var unreadMessages = await _contactService.GetUnreadAsync();
+            return PartialView("_NotificationPartial", unreadMessages); // important: partial view return
+        }
 
+        // Bell pe click karte hi sab message read mark karo
+        [HttpPost]
+        public async Task<IActionResult> MarkAllAsRead()
+        {
+            var unreadMessages = await _contactService.GetUnreadAsync();
             foreach (var msg in unreadMessages)
             {
-                await _contactService.MarkAsReadAsync(msg.Id); // sab message read mark karo
+                await _contactService.MarkAsReadAsync(msg.Id); // sab ko read mark karo
             }
-
-            var allMessages = await _contactService.GetAllAsync();
-            return View(allMessages);
+            return Ok(); // Return OK for AJAX
         }
+
 
     }
 

@@ -123,7 +123,9 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 @if (User.IsInRole("Admin"))
                 {
-                    @await Html.PartialAsync("_NotificationPartial", unreadMessages)
+                    <a id="notificationArea">
+                        @await Html.PartialAsync("_NotificationPartial", unreadMessages)
+                    </a>
                 }
 
                 <li class="nav-item dropdown ms-3">
